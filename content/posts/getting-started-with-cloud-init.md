@@ -1,5 +1,5 @@
 +++
-date = "2017-10-30T10:30:00-04:00"
+date = "2019-10-30T10:30:00-04:00"
 draft = false
 title = "Getting Started with Cloud Init"
 subtitle = "Deploying a customized VM on AWS"
