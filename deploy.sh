@@ -11,6 +11,8 @@ hugo
 # Go To Public folder
 cd public
 
+git checkout master
+
 # Add changes to git.
 git add .
 
