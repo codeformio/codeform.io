@@ -11,12 +11,13 @@ Define the environment.
 
 ```sh
 export ENV=non-prod
+export CLUSTER=non-east-a
 ```
 
 Create a local cluster representing this environment.
 
 ```sh
-kind create cluster --name $ENV
+kind create cluster --name $CLUSTER
 ```
 
 ## Bootstrap the Cluster
@@ -24,13 +25,13 @@ kind create cluster --name $ENV
 Install the GitOps engine.
 
 ```sh
-kustomize build "https://github.com/codeformio/k8s-cluster-config/library/argocd?ref=$ENV" | kubectl apply -f -
+kustomize build "https://github.com/codeformio/k8s-cluster-config/base/argocd?ref=$ENV" | kubectl apply -f -
 ```
 
-Bootstrap the cluster configuration by installing the root ArgoCD Application.
+Configure the GitOps engine.
 
 ```sh
-kubectl apply -f https://raw.githubusercontent.com/codeformio/k8s-cluster-config/$ENV/deploy/$ENV/root.yaml
+kustomize build "https://github.com/codeformio/k8s-gitops-config/$ENV/$CLUSTER?ref=$ENV" | kubectl apply -f -
 ```
 
 ## Login to UI
@@ -72,5 +73,5 @@ TODO
 Delete the cluster.
 
 ```sh
-kind delete cluster --name $ENV
+kind delete cluster --name $CLUSTER
 ```
