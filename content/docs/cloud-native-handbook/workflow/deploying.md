@@ -55,7 +55,7 @@ A GitOps engine is preferable to a pipeline because it provides active reconcili
 
 ## Repo Scope
 
-The scope of a config repo should be determined by identifying a [bounded context](https://martinfowler.com/bliki/BoundedContext.html) (which should ideally correspond to a team of people). Using GitOps objects to point to other repositories, a tree structure emerges. The root of the tree is usually a repository that the cluster operations team manages. This repository contains all cluster-level configuration.
+The scope of a config repo should be determined by identifying a [bounded context](https://martinfowler.com/bliki/BoundedContext.html) (which should ideally correspond to a team of people). Using GitOps objects to point to other repositories, a tree structure emerges. The root of the tree is usually a repository that the cluster operations team manages. Commonly, all cluster-level configuration is held in another repo, maintained by the same team. Application-specific repositories are also referenced, delegating access to app teams to deploy specific resources (i.e. Deployments, Services, etc.) into whitelisted namespaces.
 
 ![Config repo tree](/images/config-repo-tree.jpg)
 
