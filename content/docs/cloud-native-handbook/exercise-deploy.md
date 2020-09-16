@@ -1,9 +1,20 @@
 ---
-title: "Exercise"
+title: "Exercise: Deploying"
 weight: 40
+aliases:
+- /docs/cloud-native-handbook/workflow/exercise/
 ---
 
-# Workflow Exercise
+# Exercise - Deploying Stuff to Kubernetes
+
+## Prereqs
+
+Make sure you have the following tools installed and up to date:
+
+- [docker](https://docs.docker.com/get-docker/) - For building containers and running k8s with `kind`.
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/) - For creating local k8s clusters.
+- [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) - For interacting with k8s.
+- [kustomize](https://kubernetes-sigs.github.io/kustomize/installation/) - For templating k8s manifests.
 
 ## Setup
 
@@ -60,17 +71,17 @@ In another terminal...
 curl localhost:8000 -v
 ```
 
-## Update the Application
+## Update an Application
 
 TODO
 
-## Redeploy the Application
+## Deploy an Updated Application
 
 TODO
 
 ## Cleanup
 
-Delete the cluster.
+Delete the local cluster.
 
 ```sh
 kind delete cluster --name $CLUSTER

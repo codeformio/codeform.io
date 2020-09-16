@@ -1,11 +1,15 @@
 ---
-title: "Developing"
+title: "Development"
 weight: 20
+aliases:
+- /docs/cloud-native-handbook/workflow/developing/
 ---
 
-# Developing
+# Development
 
 All development should occur in a "code repo". This is a repository where the sole purpose is to produce deployable software. In the cloud native world, this means the goal is to push container images to a registry.
+
+## Branching Strategy
 
 The branching strategy described here mirrors [oneflow](https://www.endoflineblog.com/oneflow-a-git-branching-model-and-workflow). We feel like it is a good fit for most teams. A single long-lived branch keeps merging simple. Git tagging triggers container image tagging. Deployment is decoupled, avoiding the complexity of maintaining environment-specific branches.
 
@@ -100,7 +104,7 @@ After fixing the bug, follow the same procedure used in a release branch: create
 
 In a cloud native world, all tests and builds should occur in containers. This means that your CI system does not need to be very complex. The biggest complexity here will come from linking the CI system to the repository (auth with service accounts, defining branch merging requirements, etc). Prefer integrated CI systems when possible to avoid the complexity of linking these two systems (i.e. GitHub workflows, GitLab pipelines).
 
-## Summary
+## Takeaways
 
 ```
 1 Long lived branch: "main"

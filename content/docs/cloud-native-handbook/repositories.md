@@ -1,11 +1,15 @@
 ---
-title: "Organizing Code & Config"
+title: "Repositories"
 weight: 10
+aliases:
+- /docs/cloud-native-handbook/workflow/organizing-code-and-config/
 ---
 
-# Organizing Code and Config
+# Repositories
 
-Using a seperate repository for code and deployment manifests is recommended. The purpose of the code repo is solely to produce versioned software artifacts. The purpose of the config repo is solely to describe deployable software. Seperating these concerns provides multiple benefits.
+When building on top of a cloud native platform all code and configuration should be version controlled. In Kubernetes, all deployment events are merely a result of updating a configuration file (referred to here as a Kubernetes manifest). Since all changes to code and config must be version controlled, we will use our repository as the origin of all changes to running software. This process is known as GitOps.
+
+When implementing a GitOps process, using a seperate repository for code and config (manifests) is recommended. The purpose of the code repo is solely to produce versioned software artifacts. The purpose of the config repo is to deploy software. Seperating these concerns provides multiple benefits detailed below.
 
 ## Small Merges
 
@@ -25,9 +29,11 @@ Applications are commonly composed of multiple components (REST APIs, databases,
 
 If code and deployment manifests live in the same repo, additional intelligence will be needed to determine if a code change or a config change occured in order to decide whether a build is necessary. This problem commonly requires slightly different code for each repository (due to variance in directory structures and language/tooling choices).
 
-## Summary
+## Takeaways
 
 ```
+GitOps - It all starts with the Repo
+
 1 Config Repo : N Code Repos
 
 Code Repo (for developing) --produces--> Built Software

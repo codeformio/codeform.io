@@ -1,28 +1,30 @@
 ---
-title: "Deploying"
+title: "Deployment"
 weight: 30
+aliases:
+- /docs/cloud-native-handbook/workflow/deploying/
 ---
 
-# Deploying
+# Deployment
 
-All deployments should be triggered from a "config repo". This is a repository where the sole purpose is to describe runnable software (not develop it - no source code here).
+Since Kubernetes is a declarative system, the act of deploying software translates to pushing Kubernetes configuration manifests into a cluster. These manifests contain descriptions of applications that should be running (what container image, how many replicas, any environment variables, dns names, etc). The cluster will then work to make sure what was declared becomes a reality.
+
+## Branching Strategy
+
+All manifests should be version controlled in a git repository (referred to here as a config repo). This usually translates to a "cluster config repo" for the platform team and at least one "app config repo" for each app team. Any commit to a config repo should result in the those manifests being applied into a cluster. The following branching strategy should work for most use-cases.
 
 ![Deployment repo branching](/images/deployment-repo.jpg)
 
 ## Environment Promotion
 
-There are two top concerns when promoting software across environments:
+There are two main concerns when promoting software across environments:
 
 * **Isolation** - Seperating changes across environments
-* **Parity / Variety** - Minimizing / accounting for differences
+* **Parity / Variety** - Minimizing / efficiently accounting for differences between environments
 
 ### Isolation
 
-Isolation is addressed using branching. The top concern is to isolate non-production and production changes. To do this, two branches are used: `non-prod` and `prod`.
-
-> *Why not use a branch per environment?*
-> 
-> Every environment could be mapped to its own branch. However, this increases the complexity of merges. Maintaining two long lived branches where merges flow in one direction (always fast-forward `prod` to the head of `non-prod`) greatly simplifies workflows while still minimizing risk to production.
+Environment isolation is addressed using branching. On the path-to-production pull requests are used to promote changes across environments. These merges should be fast-forward-only, eliminating merge conflicts.
 
 ### Parity / Variety
 
@@ -30,14 +32,13 @@ As software moves from non-production to production it is important maintain the
 
 ```
 base/       # Common config across all environments
-staging/    # Deployed from non-prod branch (references base/)
-feature-x/  # Deployed from non-prod branch (references base/)
-production/ # Deployed from prod branch     (references base/)
+staging/    # Deployed from "staging" branch    (references base/)
+production/ # Deployed from "production" branch (references base/)
 ```
 
-A `base/` directory is used to account for commonality (parity) across environments. Changes that are to be promoted from non-production to production should be made in base (i.e. updated image version). Once the `non-prod` branch gets merged into the `prod` branch, these changes will be promoted.
+A `base/` directory is used to account for commonality (parity) across environments. Changes that are to be promoted from non-production to production should be made in base (i.e. updated image version). As the `base/` changes make their way into environment-specific branches, these changes will be promoted.
 
-Individual `<environment>/` directories are used to account for variety across environments. Variances that should always exist across environments (i.e. replica count / resource allocation) should be maintained in these directories as patches to base resources or additional resources to be added.
+Individual `<environment>/` directories are used to account for variances that should always exist across environments (i.e. replica count / resource allocation). These variations are usually maintained in the form of patches on the base resources.
 
 > *Why not use staging as a base for production?*
 >
@@ -59,12 +60,12 @@ The scope of a config repo should be determined by identifying a [bounded contex
 
 ![Config repo tree](/images/config-repo-tree.jpg)
 
-## Summary
+## Takeaways
 
 ```
 * Environments seperated by directory within repo.
 
-* Production and non-production environments seperated by branch (and directory).
+* Staging/Production/etc. environments seperated by branch (and directory).
 
-* Branch merges: main --> non-prod --> prod
+* Fast-forward branch merges: staging --> prod
 ```
