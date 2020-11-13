@@ -7,6 +7,8 @@ aliases:
 
 # Exercise - Deploying Stuff to Kubernetes
 
+In this exercise we will create a local Kubernetes cluster and deploy manifests to it using a GitOps engine called ArgoCD.
+
 ## Prereqs
 
 Make sure you have the following tools installed and up to date:

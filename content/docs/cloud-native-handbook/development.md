@@ -46,7 +46,7 @@ Use the following checklist when approving pull requests:
 * [&check;] Code follows conventions.
 * [&check;] Dense code has commented explanations.
 * [&check;] Unit/e2e tests for feature exist.
-* [&check;] User documentation is updated (if seperate from repo, add link in PR description).
+* [&check;] User documentation is updated (if separate from repo, add link in PR description).
 
 Once the merge occurs, the feature branch should be automatically removed to keep the repository clean.
 

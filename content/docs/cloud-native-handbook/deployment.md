@@ -19,7 +19,7 @@ All manifests should be version controlled in a git repository (referred to here
 
 There are two main concerns when promoting software across environments:
 
-* **Isolation** - Seperating changes across environments
+* **Isolation** - Separating changes across environments
 * **Parity / Variety** - Minimizing / efficiently accounting for differences between environments
 
 ### Isolation
