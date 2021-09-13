@@ -3,5 +3,5 @@
 	url = https://github.com/alex-shpak/hugo-book
 [submodule "public"]
 	path = public
-	url = https://github.com/codeformio/codeformio.github.io
+	url = git@github.com:codeformio/codeformio.github.io.git
 	branch = master
